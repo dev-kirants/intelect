@@ -1,0 +1,433 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelect | Live Assessment Platform</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https: data: blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
+<meta name="referrer" content="strict-origin-when-cross-origin"><meta name="robots" content="noindex,nofollow">
+<script>if(window.top!==window.self){try{window.top.location=window.self.location}catch(e){document.documentElement.style.display='none'}}</script>
+<!-- INTELECT on Supabase: 1) run supabase-setup.sql in the SQL Editor  2) paste SUPABASE_URL + anon key in the script below  3) host this single file anywhere (add its URL in Auth → URL Configuration). -->
+<style>
+:root{--bg:#050816;--ink:#e8ecf8;--mut:#8b95b3;--line:rgba(255,255,255,.09);--glass:rgba(255,255,255,.045);--c1:#22d3ee;--c2:#6366f1;--c3:#d946ef;--grad:linear-gradient(120deg,#22d3ee,#6366f1 55%,#d946ef);--ok:#34d399;--no:#fb7185}
+*{box-sizing:border-box}html{scroll-behavior:smooth}
+body{margin:0;font:15px/1.55 "Inter",system-ui,-apple-system,"Segoe UI",sans-serif;background:var(--bg);color:var(--ink);min-height:100vh;overflow-x:hidden;-webkit-font-smoothing:antialiased}
+h1,h2,h3,.logo,.pin,.big-h,.num{font-family:"Space Grotesk","Inter",sans-serif}
+/* ambience */
+.amb{position:fixed;inset:0;z-index:-1;overflow:hidden;background:radial-gradient(1200px 700px at 50% -10%,#0f1b4d 0,transparent 60%),var(--bg)}
+.orb{position:absolute;border-radius:50%;filter:blur(90px);opacity:.5;animation:float 22s ease-in-out infinite}
+.o1{width:520px;height:520px;background:#2563eb;top:-120px;left:-120px}
+.o2{width:480px;height:480px;background:#9333ea;bottom:-140px;right:-100px;animation-delay:-7s}
+.o3{width:360px;height:360px;background:#06b6d4;top:40%;left:55%;opacity:.28;animation-delay:-13s}
+@keyframes float{0%,100%{transform:translate(0,0) scale(1)}33%{transform:translate(60px,40px) scale(1.12)}66%{transform:translate(-40px,70px) scale(.94)}}
+.grid{position:absolute;inset:0;background-image:linear-gradient(var(--line) 1px,transparent 1px),linear-gradient(90deg,var(--line) 1px,transparent 1px);background-size:56px 56px;mask-image:radial-gradient(ellipse at 50% 30%,#000 0,transparent 72%);-webkit-mask-image:radial-gradient(ellipse at 50% 30%,#000 0,transparent 72%);opacity:.55}
+/* header */
+header{position:sticky;top:0;z-index:20;display:flex;justify-content:space-between;align-items:center;padding:12px max(18px,calc((100% - 1000px)/2));background:rgba(5,8,22,.6);backdrop-filter:blur(18px);-webkit-backdrop-filter:blur(18px);border-bottom:1px solid var(--line)}
+.logo{display:flex;align-items:center;gap:10px;font-weight:700;font-size:20px;letter-spacing:3px;cursor:pointer;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.logo svg{width:30px;height:30px;filter:drop-shadow(0 0 12px #6366f1aa)}
+.chip{display:inline-flex;gap:8px;align-items:center;border:1px solid var(--line);background:var(--glass);color:var(--ink);padding:7px 14px;border-radius:99px;font-size:13px;cursor:pointer;transition:.2s}.chip:hover{border-color:#6366f1;background:#6366f122}
+main{max-width:760px;margin:0 auto;padding:28px 18px 70px;animation:rise .5s ease both}main.wide{max-width:1000px}
+@keyframes rise{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+footer{text-align:center;color:var(--mut);font-size:12px;letter-spacing:1.5px;padding:0 0 28px;text-transform:uppercase}
+/* cards */
+.card{position:relative;background:var(--glass);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid var(--line);border-radius:18px;padding:24px;margin-bottom:18px;box-shadow:0 20px 50px -20px #000a,inset 0 1px 0 #ffffff12}
+.card.glow:before{content:"";position:absolute;inset:-1px;border-radius:19px;padding:1px;background:var(--grad);-webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);-webkit-mask-composite:xor;mask-composite:exclude;opacity:.55;pointer-events:none}
+h1{margin:0 0 14px;font-size:22px;font-weight:600}h2,h3{margin:10px 0;font-weight:600}
+.hero{text-align:center;padding:30px 0 26px}.hero .eyebrow{margin-bottom:14px}
+.hero h1{font-size:clamp(32px,6vw,52px);line-height:1.08;letter-spacing:-1px;margin:0 0 14px}
+.grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.hero p{color:var(--mut);max-width:480px;margin:0 auto;font-size:16px}
+.eyebrow{display:inline-block;font-size:11.5px;letter-spacing:2.4px;text-transform:uppercase;color:var(--c1);font-weight:600;padding:5px 12px;border:1px solid #22d3ee44;border-radius:99px;background:#22d3ee11}
+/* inputs & buttons */
+input,select{width:100%;padding:12px 14px;border:1px solid var(--line);border-radius:12px;font:inherit;margin:5px 0;background:rgba(5,8,22,.55);color:var(--ink);transition:.2s}
+input::placeholder{color:#6b7594}input:focus,select:focus{outline:none;border-color:#6366f1;box-shadow:0 0 0 3px #6366f133}
+select option{background:#0b1030;color:var(--ink)}input[type=radio]{width:auto;accent-color:#6366f1;transform:scale(1.25)}
+.btn{width:100%;padding:12px 16px;border:1px solid var(--line);border-radius:12px;font:inherit;font-weight:600;background:var(--glass);color:var(--ink);cursor:pointer;margin:5px 0;transition:.2s;text-align:center;display:inline-block}
+.btn:hover{background:#ffffff14;border-color:#ffffff33;transform:translateY(-1px)}.btn:active{transform:none}
+.pri,.big{background:var(--grad);border:0;color:#fff;box-shadow:0 10px 28px -8px #6366f1aa}.pri:hover,.big:hover{background:var(--grad);filter:brightness(1.12);box-shadow:0 14px 34px -8px #6366f1dd}
+.big{padding:16px;font-size:16px}.sm{width:auto;padding:9px 16px;font-size:14px}
+.red{color:#fda4af;border-color:#fb718544;background:#fb71850d}.red:hover{background:#fb718522}
+.or{display:flex;align-items:center;gap:12px;color:var(--mut);margin:14px 0;font-size:11.5px;text-transform:uppercase;letter-spacing:2px}.or:before,.or:after{content:"";flex:1;height:1px;background:var(--line)}
+.row{display:flex;gap:8px;align-items:center;flex-wrap:wrap}.row>*{margin:5px 0}.row>.btn{width:auto}
+.split{display:grid;grid-template-columns:1fr 1fr;gap:18px}@media(max-width:700px){.split{grid-template-columns:1fr}}
+.ic{width:44px;height:44px;border-radius:12px;display:grid;place-items:center;background:linear-gradient(135deg,#22d3ee33,#6366f144);border:1px solid #6366f155;margin-bottom:12px;font-size:20px}
+.muted{color:var(--mut)}small{color:var(--mut)}
+/* media */
+.m{width:100%;max-height:260px;object-fit:contain;border-radius:12px;background:#02040f;margin:8px 0}iframe.m{height:260px;border:0}
+/* options */
+.opts{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}@media(max-width:520px){.opts{grid-template-columns:1fr}}
+.opt{border:1px solid #ffffff22;border-radius:14px;color:#fff;font:inherit;font-size:17px;font-weight:600;padding:24px 14px;cursor:pointer;text-align:left;transition:.2s;box-shadow:inset 0 1px 0 #ffffff33,0 10px 24px -12px #000}
+button.opt:hover{transform:translateY(-3px) scale(1.01);filter:brightness(1.15)}button.opt:active{transform:scale(.98)}
+.bar{height:8px;background:#ffffff14;border-radius:99px;overflow:hidden;margin:12px 0}#tm{height:100%;background:var(--grad);width:100%;transition:width .2s linear;border-radius:99px;box-shadow:0 0 14px #22d3ee88}
+/* leaderboard */
+.lb{list-style:none;padding:0;margin:0}.lb li{display:flex;gap:12px;align-items:center;padding:12px 16px;background:var(--glass);border:1px solid var(--line);border-radius:12px;margin:8px 0;animation:rise .4s ease both}
+.lb li span{width:26px;height:26px;border-radius:8px;background:#ffffff12;display:grid;place-items:center;font-size:13px;color:var(--mut);font-weight:600}
+.lb li:nth-child(1) span{background:linear-gradient(135deg,#fbbf24,#f59e0b);color:#2a1a00}.lb li:nth-child(2) span{background:linear-gradient(135deg,#e5e7eb,#9ca3af);color:#111}.lb li:nth-child(3) span{background:linear-gradient(135deg,#fdba74,#c2410c);color:#fff}
+.lb b{flex:1;font-weight:600}.lb em{font-style:normal;font-weight:700;font-variant-numeric:tabular-nums;color:var(--c1)}.lb .me{border-color:#6366f1;background:#6366f126}
+.podium{display:flex;align-items:flex-end;justify-content:center;gap:12px;margin:18px 0 8px;min-height:190px}
+.pd{flex:1;max-width:150px;text-align:center}.pd .nm{font-weight:600;margin-bottom:6px;word-break:break-word}.pd .sc{color:var(--c1);font-weight:700;font-size:13px;margin-bottom:6px}
+.pd .bl{border-radius:14px 14px 0 0;display:grid;place-items:center;font:700 34px "Space Grotesk";color:#fff;animation:grow .9s cubic-bezier(.2,.8,.2,1) both;border:1px solid #ffffff33}
+@keyframes grow{from{height:0!important;opacity:0}}
+.pin{font-weight:700;font-size:clamp(46px,12vw,72px);letter-spacing:10px;text-align:center;margin:4px 0;background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+.lnk{text-align:center;color:var(--c1);cursor:pointer;margin:12px 0;font-weight:500}.lnk:hover{text-decoration:underline}
+.pl span{display:inline-block;background:#6366f126;border:1px solid #6366f155;border-radius:99px;padding:6px 14px;margin:4px;font-weight:500;animation:rise .35s ease both}
+.ok{color:var(--ok)}.no{color:var(--no)}.c{text-align:center}.qc{border-left:3px solid #6366f1}.rl{font-size:12.5px;color:var(--mut)}.rl.g{color:var(--ok)}hr{border:0;border-top:1px solid var(--line);margin:16px 0}
+#reader{margin:8px 0;border-radius:12px;overflow:hidden}#qr{display:flex;justify-content:center;margin:16px auto;padding:14px;background:#fff;border-radius:16px;width:max-content;box-shadow:0 0 50px #6366f155}
+.pulse{width:70px;height:70px;border-radius:50%;margin:16px auto;background:var(--grad);animation:pulse 1.6s ease-in-out infinite}
+@keyframes pulse{0%,100%{transform:scale(.85);box-shadow:0 0 0 0 #6366f188}50%{transform:scale(1);box-shadow:0 0 0 26px #6366f100}}
+.verdict{font-size:30px;margin:6px 0}
+/* dashboard */
+.hd{display:flex;justify-content:space-between;align-items:flex-end;gap:12px;flex-wrap:wrap;margin-bottom:20px}.big-h{font-size:clamp(26px,5vw,38px);margin:8px 0 0;font-weight:700;letter-spacing:-.5px}
+.stats{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:14px;margin-bottom:22px}
+.stat{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:16px 18px;backdrop-filter:blur(14px)}.stat .num{font-size:32px;font-weight:700}.stat div:last-child{color:var(--mut);font-size:12.5px;text-transform:uppercase;letter-spacing:1.5px}
+.tabs{display:inline-flex;gap:4px;padding:5px;border:1px solid var(--line);border-radius:14px;background:var(--glass);margin-bottom:18px;max-width:100%;overflow:auto}
+.tab{border:0;background:none;color:var(--mut);font:inherit;font-weight:600;padding:9px 18px;border-radius:10px;cursor:pointer;transition:.2s;white-space:nowrap}.tab:hover{color:var(--ink)}.tab.on{background:var(--grad);color:#fff;box-shadow:0 6px 18px -6px #6366f1cc}
+.item{display:flex;gap:12px;align-items:center;flex-wrap:wrap;padding:14px 16px;background:var(--glass);border:1px solid var(--line);border-radius:14px;margin:10px 0;transition:.2s}.item:hover{border-color:#6366f188;background:#6366f114}
+.item .t{flex:1;min-width:160px}.item .t b{display:block;font-size:16px}.item .t small{display:block}.item .btn{width:auto;margin:0;padding:8px 14px;font-size:13.5px}
+.tag{font-size:11px;letter-spacing:1px;text-transform:uppercase;padding:3px 10px;border-radius:99px;border:1px solid var(--line);color:var(--mut);font-weight:600}.tag.live{color:var(--ok);border-color:#34d39955;background:#34d39911}
+.drop{border:2px dashed #6366f177;border-radius:16px;padding:30px 16px;text-align:center;cursor:pointer;transition:.2s;background:#6366f10d;display:block}.drop:hover,.drop.on{background:#6366f126;border-color:var(--c1)}
+.modal{position:fixed;inset:0;z-index:50;background:#02040fcc;backdrop-filter:blur(8px);display:grid;place-items:center;padding:18px;animation:rise .25s ease}.modal .card{max-width:560px;width:100%;max-height:88vh;overflow:auto;margin:0;background:#0b1030f2}
+#toast{position:fixed;bottom:24px;left:50%;transform:translateX(-50%) translateY(20px);background:#0b1030;border:1px solid #6366f1aa;color:#fff;padding:12px 20px;border-radius:12px;opacity:0;transition:.25s;pointer-events:none;z-index:99;box-shadow:0 10px 40px #000a}#toast.on{opacity:1;transform:translateX(-50%)}
+body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
+input,textarea,select{-webkit-user-select:text;user-select:text}
+img,video{-webkit-user-drag:none}
+@media print{html,body{display:none!important}}
+</style></head><body>
+<div class="amb"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><div class="grid"></div></div>
+<div id="app"></div><div id="modal"></div><div id="toast"></div>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+<script>
+// ===== 1. PASTE YOUR SUPABASE KEYS HERE (Project Settings → API) =====
+const SUPABASE_URL="https://nquciepppnejhdnweqwu.supabase.co";
+const SUPABASE_ANON_KEY="eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im5xdWNpZXBwcG5lamhkbndlcXd1Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTE4NDYwNDAsImV4cCI6MjEwNzQyMjA0MH0.hsyTvzkM08JFiQx1IDitJjuQzOIKB3NSnk7iUVB9N6Y"; // public "anon" key only. NEVER paste the service_role key here.
+const READY=!/YOUR[-_]/.test(SUPABASE_URL+SUPABASE_ANON_KEY);
+const sb=READY?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persistSession:true,autoRefreshToken:true,detectSessionInUrl:true}}):null;
+
+// ===== 2. SECURITY LAYER (client-side deterrents; real protection = Row Level Security in supabase-setup.sql) =====
+(function(){
+ const ed=e=>{const t=e.target&&(e.target.nodeType===1?e.target:e.target.parentElement);return !!(t&&t.closest&&t.closest('input,textarea,select'))};
+ const stop=e=>{e.preventDefault();e.stopPropagation();return false};
+ document.addEventListener('contextmenu',stop,true);                         // right click off
+ document.addEventListener('dragstart',stop,true);
+ document.addEventListener('selectstart',e=>{if(!ed(e))stop(e)},true);
+ ['copy','cut'].forEach(n=>document.addEventListener(n,e=>{if(!ed(e))stop(e)},true));
+ document.addEventListener('keydown',e=>{const k=(e.key||'').toLowerCase(),c=e.ctrlKey||e.metaKey;
+  if(e.key==='F12'||(c&&e.shiftKey&&'ijcm'.includes(k))||(c&&e.altKey&&'iju'.includes(k))||(c&&'usp'.includes(k)&&k.length===1))return stop(e)},true);
+ if(window.top!==window.self){try{window.top.location=window.self.location}catch(e){document.documentElement.innerHTML=''}}   // anti-clickjacking
+ try{console.log('%cSTOP!','color:#fb7185;font-size:42px;font-weight:700');console.log('%cThis console is for developers. Pasting code here can give attackers access to your account.','font-size:15px')}catch(e){}
+})();
+
+// ===== 3. CORE HELPERS =====
+const app=document.getElementById('app'),$=s=>document.querySelector(s);
+const COL=['linear-gradient(135deg,#3b82f6,#1e3a8a)','linear-gradient(135deg,#14b8a6,#115e59)','linear-gradient(135deg,#f59e0b,#92400e)','linear-gradient(135deg,#a855f7,#581c87)'],SH=['▲','◆','●','■'],TIMES=[10,20,30,60];
+let me=null,unsub=[],tick=0,scan=null,draft=null,quizId=null,pending=null,first=true,P={},tab='quizzes',DQ=[],DG=[],IMP=null,IMPX=0;
+const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+const norm=s=>String(s).trim().toLowerCase().replace(/\s+/g,' ');
+const cut=(s,n)=>String(s??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,'').trim().slice(0,n);
+const toast=m=>{const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',3200)};
+const show=h=>{app.innerHTML=h+'<footer>Intelect · Live assessment platform</footer>'};
+const clear=()=>{unsub.forEach(f=>f());unsub=[];clearInterval(tick);if(scan){scan.stop().catch(()=>{});scan=null}closeModal()};
+const fmt=t=>t?new Date(t).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}):'';
+const openModal=h=>{$('#modal').innerHTML=`<div class=modal onclick="if(event.target===this)closeModal()"><div class=card>${h}</div></div>`};
+const closeModal=()=>{$('#modal').innerHTML=''};
+const isAnon=u=>!u||u.is_anonymous===true;
+const dname=u=>(u&&(u.user_metadata?.name||u.user_metadata?.full_name||u.email))||'';
+const verified=u=>!!(u.email_confirmed_at||u.confirmed_at);
+const rd=async p=>{try{const r=await p;return r.error?undefined:r.data}catch(e){return undefined}};   // read helper: undefined on error
+const safeUrl=u=>{u=String(u||'').trim();if(!u)return'';if(/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(u))return u;try{const x=new URL(u);return x.protocol==='https:'?x.href:''}catch(e){return''}};
+const MARK=`<svg viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#6366f1"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs><path d="M16 2l12 7v14l-12 7L4 23V9z" fill="url(#lg)"/><path d="M17.5 7.5l-6.5 10h5l-1.5 7 7-10.5h-5z" fill="#fff"/></svg>`;
+const lb=(ps,n,id)=>`<ol class=lb>${[...ps].sort((a,b)=>b.score-a.score).slice(0,n).map((p,i)=>`<li class="${p.id===id?'me':''}" style="animation-delay:${i*60}ms"><span>${i+1}</span><b>${esc(p.name)}</b><em>${p.score}</em></li>`).join('')}</ol>`;
+const podium=ps=>{const s=[...ps].sort((a,b)=>b.score-a.score).slice(0,3);if(!s.length)return'';const H=[150,110,80],G=['linear-gradient(180deg,#fbbf24,#b45309)','linear-gradient(180deg,#d1d5db,#6b7280)','linear-gradient(180deg,#fb923c,#7c2d12)'],order=[1,0,2].filter(i=>s[i]);
+ return`<div class=podium>${order.map(i=>`<div class=pd><div class=nm>${esc(s[i].name)}</div><div class=sc>${s[i].score} pts</div><div class=bl style="height:${H[i]}px;background:${G[i]}">${i+1}</div></div>`).join('')}</div>`};
+const logo=()=>`<header><span class=logo onclick="home()">${MARK}INTELECT</span>${me&&!isAnon(me)?`<span class=chip onclick="signOut()">${esc(dname(me))} · Sign out</span>`:''}</header>`;
+function media(q){let h='';const im=safeUrl(q.img);if(im)h+=`<img class=m src="${esc(im)}" alt="" draggable=false>`;
+ if(q.vid){const v=safeUrl(q.vid),y=String(q.vid).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
+  if(y)h+=`<iframe class=m src="https://www.youtube-nocookie.com/embed/${y[1]}?rel=0" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen loading=lazy></iframe>`;
+  else if(v)h+=`<video class=m src="${esc(v)}" controls playsinline controlslist="nodownload"></video>`}
+ return h}
+async function signOut(){try{await sb.auth.signOut()}catch(e){}me=null;home()}
+
+// realtime + polling fallback; callback fires only when data actually changed
+function live(table,pin,fetcher,cb){let last,dead=false;
+ const run=async()=>{if(dead)return;const d=await fetcher();if(d===undefined||dead)return;const s=JSON.stringify(d);if(s!==last){last=s;cb(d)}};
+ run();const ch=sb.channel(`${table}-${pin}-${Math.random().toString(36).slice(2)}`).on('postgres_changes',{event:'*',schema:'public',table,filter:`pin=eq.${pin}`},run).subscribe();
+ const iv=setInterval(run,3000);return()=>{dead=true;clearInterval(iv);sb.removeChannel(ch)}}
+const mapG=r=>r?{...r,qStart:r.q_start?Date.parse(r.q_start):null}:{};
+const getPlayers=pin=>async()=>{const d=await rd(sb.from('players').select('*').eq('pin',pin));return d&&d.map(p=>({...p,id:p.uid}))};
+const getGame=pin=>()=>rd(sb.from('games').select('*').eq('pin',pin).maybeSingle());
+
+// idle auto sign-out for hosts (60 min)
+(function(){let t;const arm=()=>{clearTimeout(t);t=setTimeout(async()=>{if(me&&!isAnon(me)){await signOut();toast('Signed out after 60 minutes of inactivity')}},60*60*1000)};
+ ['mousemove','keydown','click','touchstart'].forEach(n=>addEventListener(n,arm,{passive:true}));arm()})();
+
+// ===== 4. AUTH STATE =====
+if(!READY){show(`${logo()}<main><div class="card glow"><h1>Connect your Supabase project</h1><p class=muted>Open this file, find <code>SUPABASE_URL</code> and <code>SUPABASE_ANON_KEY</code> near the top of the script and paste your project values (Supabase → Project Settings → API). Then run <code>supabase-setup.sql</code> once in the SQL Editor.</p></div></main>`)}
+else sb.auth.onAuthStateChange((ev,s)=>{setTimeout(()=>{me=s?.user||null;
+ if(ev==='PASSWORD_RECOVERY'){first=false;return recoverView()}
+ if(me&&!isAnon(me)&&(ev==='SIGNED_IN'||ev==='INITIAL_SESSION'))sb.from('profiles').upsert({id:me.id,name:dname(me),email:me.email,last:new Date().toISOString()}).then(()=>{},()=>{});
+ if(first){first=false;let go=false;try{go=sessionStorage.getItem('ix_go')==='1';sessionStorage.removeItem('ix_go')}catch(e){}
+  if(go&&me&&!isAnon(me))gate(dash);else home()}
+ else if(pending&&me&&!isAnon(me)&&ev==='SIGNED_IN'){const c=pending;pending=null;gate(c)}},0)});
+
+// ===== HOME =====
+function home(){clear();draft=null;const pin=(new URLSearchParams(location.search).get('pin')||'').replace(/\D/g,'').slice(0,6);
+ show(`${logo()}<main><div class=hero><span class=eyebrow>Live assessment platform</span><h1>Think sharper.<br><span class=grad>Compete live.</span></h1><p>Run real-time quizzes with instant leaderboards. Build once, import from Excel, export every result.</p></div>
+ <div class=split><div class="card glow"><div class=ic>⚡</div><h1>Join a quiz</h1>
+ <button class="btn big" onclick="startScan()">Scan QR code</button><div id=reader></div>
+ <div class=or>or enter code</div>
+ <input id=pin inputmode=numeric maxlength=6 placeholder="6-digit game code" value="${esc(pin)}" autocomplete=off>
+ <input id=nick maxlength=16 placeholder="Your nickname" autocomplete=off>
+ <button class="btn pri" onclick="joinGame()">Join game</button></div>
+ <div class=card><div class=ic>🎛️</div><h1>Host a quiz</h1><p class=muted>Create quizzes, launch live sessions, and manage all your data — including Excel import &amp; export and full backups — from one control center.</p>
+ <button class="btn pri" onclick="gate(dash)">Open control center</button></div></div></main>`)}
+function startScan(){if(!READY)return;const r=new Html5Qrcode('reader');scan=r;
+ r.start({facingMode:'environment'},{fps:10,qrbox:220},t=>{let p=t;try{p=new URL(t).searchParams.get('pin')||t}catch(e){}
+  $('#pin').value=String(p).replace(/\D/g,'').slice(0,6);r.stop().then(()=>{scan=null;$('#reader').innerHTML='';$('#nick').focus()}).catch(()=>{})},()=>{}).catch(()=>toast('Camera blocked — enter the code instead'))}
+async function joinGame(){if(!READY)return toast('Set your Supabase keys first');
+ const pin=$('#pin').value.trim(),nick=cut($('#nick').value,16).replace(/[<>]/g,'');
+ if(!/^\d{6}$/.test(pin))return toast('Enter the 6-digit code');if(!nick)return toast('Pick a nickname');
+ try{let u=(await sb.auth.getSession()).data.session?.user;if(!u){const r=await sb.auth.signInAnonymously();if(r.error)throw r.error;u=r.data.user}
+  const g=await rd(sb.from('games').select('pin,state').eq('pin',pin).maybeSingle());if(!g||g.state==='end')return toast('Game not found or finished');
+  const {error}=await sb.from('players').insert({pin,uid:u.id,name:nick});if(error&&error.code!=='23505')throw error;
+  history.replaceState(null,'',location.pathname);player(pin,u.id)}catch(e){toast('Could not join: '+(e.message||e))}}
+
+// ===== AUTH =====
+const rules=p=>[[p.length>=10,'10+ characters'],[/[a-z]/.test(p),'lowercase'],[/[A-Z]/.test(p),'UPPERCASE'],[/\d/.test(p),'number'],[/[^\w\s]/.test(p),'symbol']];
+const ruleHtml=p=>rules(p).map(([k,t])=>`<span class="rl ${k?'g':''}">${k?'✓':'○'} ${t}</span> `).join('');
+let fails=0,lockUntil=0;
+function gate(cb){const u=me;if(u&&!isAnon(u)){if(verified(u))return cb();return verifyView(cb)}authView(cb)}
+function verifyView(cb){clear();show(`${logo()}<main><div class="card glow"><h1>Verify your email</h1><p class=muted>We sent a link to <b style="color:#fff">${esc(me.email)}</b>. Open it, then continue.</p>
+ <button class="btn pri" id=v>I've verified</button><button class=btn id=rs>Resend email</button></div></main>`);
+ $('#v').onclick=async()=>{const r=await sb.auth.getUser();me=r.data?.user||me;gate(cb)};
+ $('#rs').onclick=()=>sb.auth.resend({type:'signup',email:me.email}).then(r=>toast(r.error?r.error.message:'Sent'))}
+function mailView(e,cb){clear();show(`${logo()}<main><div class="card glow" style="max-width:460px;margin:20px auto"><h1>Check your email</h1><p class=muted>We sent a confirmation link to <b style="color:#fff">${esc(e)}</b>. Open it, then sign in.</p>
+ <button class="btn pri" id=bk>Go to sign in</button></div></main>`);$('#bk').onclick=()=>authView(cb)}
+function recoverView(){clear();show(`${logo()}<main><div class="card glow" style="max-width:460px;margin:20px auto"><h1>Set a new password</h1><input id=np type=password placeholder="New password" autocomplete=new-password><div id=rl></div><button class="btn pri" id=sv>Save password</button></div></main>`);
+ $('#np').oninput=e=>{$('#rl').innerHTML=ruleHtml(e.target.value)};
+ $('#sv').onclick=async()=>{const p=$('#np').value;if(rules(p).some(x=>!x[0]))return toast('Password is not strong enough');const r=await sb.auth.updateUser({password:p});if(r.error)return toast(r.error.message);toast('Password updated');gate(dash)}}
+function authView(cb){clear();pending=cb;let up=false;
+ const r=()=>{show(`${logo()}<main><div class="card glow" style="max-width:460px;margin:20px auto"><h1>${up?'Create account':'Welcome back'}</h1>
+ <button class=btn id=g>Continue with Google</button><div class=or>or use Gmail + password</div>
+ ${up?'<input id=nm maxlength=40 placeholder="Full name" autocomplete=name>':''}<input id=em type=email maxlength=120 placeholder="you@gmail.com" autocomplete=email>
+ <input id=pw type=password maxlength=72 placeholder="Password" autocomplete="${up?'new-password':'current-password'}">${up?'<div id=rl></div>':''}
+ <button class="btn pri" id=go>${up?'Create account':'Sign in'}</button>
+ <p class=lnk id=sw>${up?'Have an account? Sign in':'New here? Create account'}</p>${up?'':'<p class=lnk id=fg>Forgot password?</p>'}<p class=lnk onclick="home()">Back</p></div></main>`);
+ $('#g').onclick=()=>{try{sessionStorage.setItem('ix_go','1')}catch(e){}sb.auth.signInWithOAuth({provider:'google',options:{redirectTo:location.origin+location.pathname}}).then(x=>x.error&&toast(x.error.message))};
+ $('#sw').onclick=()=>{up=!up;r()};
+ if(up)$('#pw').oninput=e=>{$('#rl').innerHTML=ruleHtml(e.target.value)};
+ if(!up)$('#fg').onclick=()=>{const e=$('#em').value.trim();if(!e)return toast('Enter your email first');sb.auth.resetPasswordForEmail(e,{redirectTo:location.origin+location.pathname}).then(x=>toast(x.error?x.error.message:'If that account exists, a reset email was sent'))};
+ $('#go').onclick=async()=>{const e=$('#em').value.trim(),p=$('#pw').value;
+  if(Date.now()<lockUntil)return toast(`Too many attempts — wait ${Math.ceil((lockUntil-Date.now())/1000)}s`);
+  try{if(up){if(!/^[^\s@]+@gmail\.com$/i.test(e))return toast('Use a Gmail address');if(rules(p).some(x=>!x[0]))return toast('Password is not strong enough');
+    const nm=cut($('#nm').value,40)||e.split('@')[0];
+    const x=await sb.auth.signUp({email:e,password:p,options:{data:{name:nm},emailRedirectTo:location.origin+location.pathname}});if(x.error)throw x.error;
+    if(!x.data.session){pending=null;mailView(e,cb)}}
+   else{const x=await sb.auth.signInWithPassword({email:e,password:p});if(x.error)throw x.error}}
+  catch(x){if(++fails>=5){lockUntil=Date.now()+60000;fails=0}toast(String(x.message||x).replace('Firebase: ',''))}}};r()}
+
+// ===== CONTROL CENTER =====
+async function dash(t){clear();tab=(typeof t==='string'?t:null)||tab||'quizzes';
+ show(`${logo()}<main class=wide><div class=hd><div><span class=eyebrow>Control center</span><h2 class=big-h style="margin-top:12px">Welcome back${dname(me)?', '+esc(dname(me).split(' ')[0]):''}</h2></div><button class="btn pri sm" onclick="edit()">+ New quiz</button></div>
+ <div id=stats class=stats></div><div class=tabs>${[['quizzes','Quizzes'],['sessions','Sessions'],['data','Data center']].map(([k,l])=>`<button class="tab ${k===tab?'on':''}" onclick="dash('${k}')">${l}</button>`).join('')}</div><div id=tb><p class=muted>Loading…</p></div></main>`);
+ const [qs,gs]=await Promise.all([rd(sb.from('quizzes').select('*').eq('owner',me.id).order('created',{ascending:false})),rd(sb.from('games').select('*').eq('host',me.id).order('created',{ascending:false}))]);
+ if(!qs||!gs){$('#tb').innerHTML=`<p class=no>Could not load data. Check your connection and that supabase-setup.sql was run.</p>`;return}
+ DQ=qs;DG=gs.map(g=>({...g,id:g.pin}));
+ const nq=DQ.reduce((s,d)=>s+(d.n||0),0);
+ $('#stats').innerHTML=[[DQ.length,'Quizzes'],[nq,'Questions'],[DG.length,'Sessions hosted'],[DG.filter(d=>d.state==='end').length,'Completed']].map(([n,l])=>`<div class=stat><div class="num grad">${n}</div><div>${l}</div></div>`).join('');
+ const T={quizzes:tabQuizzes,sessions:tabSessions,data:tabData}[tab];$('#tb').innerHTML=T()}
+function tabQuizzes(){return DQ.length?DQ.map(d=>`<div class=item><div class=t><b>${esc(d.title)}</b><small>${d.n} questions · ${fmt(d.created)}</small></div>
+ <button class="btn pri" onclick="hostGame('${d.id}')">▶ Host</button><button class=btn onclick="edit('${d.id}')">Edit</button><button class=btn onclick="exportQuizzes('${d.id}')">⬇ Excel</button><button class="btn red" onclick="delQ('${d.id}')">Delete</button></div>`).join(''):`<div class="card c"><div class=ic style="margin:0 auto 12px">✨</div><h1>No quizzes yet</h1><p class=muted>Create your first quiz or import a whole set from Excel.</p><div class=row style="justify-content:center"><button class="btn pri sm" onclick="edit()">+ New quiz</button><button class="btn sm" onclick="dash('data')">Import from Excel</button></div></div>`}
+function tabSessions(){return DG.length?DG.map(d=>{const live=d.state!=='end';return`<div class=item><div class=t><b>${esc(d.title)}</b><small>PIN ${d.pin} · ${fmt(d.created)}</small></div><span class="tag ${live?'live':''}">${live?'open':'completed'}</span>
+ <button class=btn onclick="viewGame('${d.pin}')">Results</button><button class=btn onclick="exportGame('${d.pin}')">⬇ Excel</button><button class="btn red" onclick="delGame('${d.pin}')">Delete</button></div>`}).join(''):'<div class="card c"><h1>No sessions yet</h1><p class=muted>Host a quiz and the results will appear here.</p></div>'}
+const lastBackup=()=>{try{const t=localStorage.getItem('ix_bk');return t?fmt(t):'never — create one now'}catch(e){return'unknown'}};
+const markBackup=()=>{try{localStorage.setItem('ix_bk',new Date().toISOString())}catch(e){}};
+function tabData(){return`<div class=split><div class=card><div class=ic>⬇</div><h1>Export</h1><p class=muted>Download everything as one Excel workbook: quizzes, sessions, player results and every answer.</p>
+ <button class="btn pri" onclick="exportAll()">Export all data (.xlsx)</button><button class=btn onclick="exportQuizzes()">Quizzes only (.xlsx)</button><button class=btn onclick="exportQuizzes(null,'csv')">Quizzes only (.csv)</button></div>
+ <div class=card><div class=ic>⬆</div><h1>Import</h1><p class=muted>Upload an .xlsx or .csv of questions. Quizzes are grouped by title and added to your library (duplicates are skipped).</p>
+ <label class=drop id=dz ondragover="event.preventDefault();this.classList.add('on')" ondragleave="this.classList.remove('on')" ondrop="event.preventDefault();this.classList.remove('on');importFile(event.dataTransfer.files[0])"><b>Drop Excel file here</b><br><small>or click to browse</small><input type=file accept=".xlsx,.xls,.csv" hidden onchange="importFile(this.files[0]);this.value=''"></label>
+ <button class=btn onclick="template()">Download import template</button></div></div>
+ <div class=card><div class=ic>🛡️</div><h1>Backup &amp; restore</h1><p class=muted>Last backup: <b style="color:#fff">${esc(lastBackup())}</b>. A full backup holds all quizzes, sessions, player results and answers. Restore brings back your quizzes (past session results stay in the file for your records).</p>
+ <div class=row><button class="btn pri sm" onclick="backupJSON()">Full backup (.json)</button><button class="btn sm" onclick="exportAll()">Excel backup (.xlsx)</button></div>
+ <label class=drop style="margin-top:14px"><b>Restore from backup</b><br><small>.json backup or Excel workbook — click to choose</small><input type=file accept=".json,.xlsx,.xls,.csv" hidden onchange="importFile(this.files[0]);this.value=''"></label></div>
+ <div class=card><h3 style="margin-top:0">Excel format</h3><p class=muted style="margin:0">Columns: <b>Quiz · No · Type · Question · Option A–D · Correct · Time (s) · Image URL · Video URL</b>. For multiple choice, <i>Correct</i> is a letter A–D. For one-word questions put the answer there, with alternates separated by <code>|</code> (e.g. cat|kitten). Image/video links must be https.</p></div>`}
+async function delQ(id){if(!confirm('Delete this quiz?'))return;const {error}=await sb.from('quizzes').delete().eq('id',id);if(error)return toast(error.message);dash('quizzes')}
+async function delGame(pin){if(!confirm('Delete this session and all its results? Export first if you need a copy.'))return;const {error}=await sb.from('games').delete().eq('pin',pin);if(error)return toast(error.message);dash('sessions')}
+
+// ===== EXCEL / BACKUP: export =====
+const stamp=()=>new Date().toISOString().slice(0,10);
+const xs=v=>typeof v==='string'&&/^([=+@]|-(?![\d.]))/.test(v)?"'"+v:v;      // blocks Excel formula injection
+const unx=v=>String(v??'').replace(/^'(?=[=+\-@])/,'');
+const dl=(blob,name)=>{const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=name;document.body.appendChild(a);a.click();setTimeout(()=>{URL.revokeObjectURL(a.href);a.remove()},600)};
+function sheet(rows){rows=rows.map(r=>Object.fromEntries(Object.entries(r).map(([k,v])=>[k,xs(v)])));const ws=XLSX.utils.json_to_sheet(rows);
+ if(rows.length)ws['!cols']=Object.keys(rows[0]).map(k=>({wch:Math.min(50,Math.max(k.length+2,...rows.slice(0,50).map(r=>String(r[k]??'').length+2)))}));return ws}
+function quizRows(docs){const rows=[];docs.forEach(q=>q.questions.forEach((x,i)=>rows.push({Quiz:q.title,No:i+1,Type:x.type==='mcq'?'Multiple choice':'One word',Question:x.t,'Option A':x.opts?.[0]||'','Option B':x.opts?.[1]||'','Option C':x.opts?.[2]||'','Option D':x.opts?.[3]||'',Correct:x.type==='mcq'?'ABCD'[x.c]:x.a,'Time (s)':x.time,'Image URL':x.img&&!x.img.startsWith('data:')?x.img:(x.img?'[uploaded picture – use JSON backup]':''),'Video URL':x.vid||''})));return rows}
+function exportQuizzes(id,f){const docs=id?DQ.filter(d=>d.id===id):DQ;if(!docs.length)return toast('Nothing to export');
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,sheet(quizRows(docs)),'Quizzes');
+ XLSX.writeFile(wb,`intelect-quizzes-${stamp()}.${f==='csv'?'csv':'xlsx'}`,f==='csv'?{bookType:'csv'}:undefined);toast('Downloaded')}
+async function gameData(pin,title){const[ps,as]=await Promise.all([rd(sb.from('players').select('*').eq('pin',pin)),rd(sb.from('answers').select('*').eq('pin',pin))]);
+ if(!ps||!as)throw Error('Could not load session data');
+ const Pl=[...ps].sort((a,b)=>b.score-a.score),nm={};Pl.forEach(p=>nm[p.uid]=p.name);
+ return{results:Pl.map((p,i)=>({PIN:pin,Quiz:title,Rank:i+1,Player:p.name,Score:p.score,Joined:fmt(p.joined)})),
+  answers:[...as].sort((a,b)=>a.q-b.q).map(a=>({PIN:pin,Quiz:title,'Question No':a.q+1,Player:nm[a.uid]||'',Answer:typeof a.a==='number'?'ABCD'[a.a]:String(a.a),Time:fmt(a.t)}))}}
+async function exportGame(pin){toast('Preparing…');try{const g=DG.find(d=>d.id===pin),r=await gameData(pin,g.title);
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,sheet(r.results),'Results');XLSX.utils.book_append_sheet(wb,sheet(r.answers),'Answers');XLSX.writeFile(wb,`intelect-session-${pin}.xlsx`);toast('Excel downloaded')}catch(e){toast(e.message)}}
+async function exportAll(){toast('Preparing workbook…');try{const wb=XLSX.utils.book_new(),res=[],ans=[];
+ for(const g of DG){const r=await gameData(g.id,g.title);res.push(...r.results);ans.push(...r.answers)}
+ XLSX.utils.book_append_sheet(wb,sheet(quizRows(DQ)),'Quizzes');
+ XLSX.utils.book_append_sheet(wb,sheet(DG.map(d=>({PIN:d.id,Quiz:d.title,Questions:d.n,Status:d.state==='end'?'Completed':'Open',Created:fmt(d.created),Players:res.filter(r=>r.PIN===d.id).length}))),'Sessions');
+ XLSX.utils.book_append_sheet(wb,sheet(res),'Results');XLSX.utils.book_append_sheet(wb,sheet(ans),'Answers');
+ XLSX.writeFile(wb,`intelect-all-data-${stamp()}.xlsx`);markBackup();toast('Full export downloaded')}catch(e){toast('Export failed: '+e.message)}}
+async function backupJSON(){toast('Preparing backup…');try{const sessions=[];
+ for(const g of DG){const r=await gameData(g.id,g.title);sessions.push({pin:g.id,title:g.title,state:g.state,questions:g.n,created:g.created,results:r.results,answers:r.answers})}
+ const out={app:'intelect',version:2,exported:new Date().toISOString(),account:me.email||'',quizzes:DQ.map(q=>({title:q.title,created:q.created,questions:q.questions})),sessions};
+ dl(new Blob([JSON.stringify(out,null,1)],{type:'application/json'}),`intelect-backup-${stamp()}.json`);markBackup();toast('Backup downloaded');if(tab==='data')dash('data')}catch(e){toast('Backup failed: '+e.message)}}
+async function viewGame(pin){const g=DG.find(d=>d.id===pin);openModal('<p class=muted>Loading…</p>');
+ const s=await rd(sb.from('players').select('*').eq('pin',pin));if(!s)return openModal('<p class=no>Could not load results.</p><button class="btn sm" onclick="closeModal()">Close</button>');
+ const ps=s.map(p=>({...p,id:p.uid}));
+ openModal(`<h1>${esc(g.title)}</h1><small>PIN ${pin} · ${fmt(g.created)} · ${ps.length} players</small>${podium(ps)}${ps.length?lb(ps,50):'<p class=muted>No players joined.</p>'}<div class=row><button class="btn pri sm" onclick="exportGame('${pin}')">⬇ Excel</button><button class="btn sm" onclick="closeModal()">Close</button></div>`)}
+
+// ===== EXCEL / BACKUP: import =====
+const hk=k=>String(k).toLowerCase().replace(/[^a-z0-9]/g,'');
+const snap=t=>TIMES.reduce((a,b)=>Math.abs(b-t)<Math.abs(a-t)?b:a,20);
+function cleanQ(q){if(!q||typeof q!=='object')return null;const type=q.type==='word'?'word':'mcq',t=cut(q.t,300);if(!t)return null;
+ const o={t,type,opts:['','','',''],c:0,a:'',img:safeUrl(q.img),vid:safeUrl(q.vid),time:snap(+q.time||20)};
+ if(type==='mcq'){o.opts=[0,1,2,3].map(i=>cut(q.opts?.[i],120));const c=+q.c;if(!Number.isInteger(c)||c<0||c>3||o.opts.filter(Boolean).length<2||!o.opts[c])return null;o.c=c}
+ else{o.a=cut(q.a,200);if(!o.a)return null}
+ return o}
+function parseRows(rows){const by=new Map();let skip=0;
+ rows.slice(0,5000).forEach(r=>{const o={};for(const k in r)o[hk(k)]=unx(r[k]);
+  const title=cut(o.quiz||o.quiztitle||o.title,80),t=cut(o.question,300);if(!title||!t){skip++;return}
+  const type=/word|text|short/i.test(o.type||'')?'word':'mcq';
+  const opts=['optiona','optionb','optionc','optiond'].map(k=>cut(o[k],120)),cor=cut(o.correct||o.answer,200);
+  const c=type==='mcq'?(/^[a-d]$/i.test(cor)?'abcd'.indexOf(cor.toLowerCase()):opts.findIndex(x=>x&&norm(x)===norm(cor))):0;
+  const q=cleanQ({t,type,opts,c,a:cor,img:o.imageurl,vid:o.videourl,time:+o.times||+o.time||20});
+  if(!q||(by.get(title)||[]).length>=200){skip++;return}
+  if(!by.has(title))by.set(title,[]);by.get(title).push(q)});
+ return{by,skip}}
+function importFile(f){if(!f)return;if(f.size>15e6)return toast('File too large (max 15 MB)');
+ const isJ=/\.json$/i.test(f.name),fr=new FileReader();fr.onerror=()=>toast('Could not read file');
+ fr.onload=e=>{try{let by=new Map(),skip=0,note='';
+  if(isJ){const j=JSON.parse(e.target.result);if(!j||j.app!=='intelect'||!Array.isArray(j.quizzes))throw Error('Not an Intelect backup file');
+   j.quizzes.slice(0,200).forEach(z=>{const title=cut(z?.title,80),qs=(Array.isArray(z?.questions)?z.questions:[]).slice(0,200).map(cleanQ),ok=qs.filter(Boolean);skip+=qs.length-ok.length;
+    if(!title||!ok.length){skip++;return}let t=title,i=2;while(by.has(t))t=`${title} (${i++})`;by.set(t,ok)});
+   if(Array.isArray(j.sessions)&&j.sessions.length)note=`<p class=muted>The backup also contains ${j.sessions.length} past session${j.sessions.length>1?'s':''} (results stay in the file for your records).</p>`}
+  else{const wb=XLSX.read(e.target.result,{type:'array'}),ws=wb.Sheets[wb.SheetNames.find(n=>/quiz/i.test(n))||wb.SheetNames[0]],r=parseRows(XLSX.utils.sheet_to_json(ws,{defval:''}));by=r.by;skip=r.skip}
+  if(!by.size)return toast('No valid questions found — check the template');IMP=by;
+  const qn=[...by.values()].reduce((s,a)=>s+a.length,0);
+  openModal(`<h1>Ready to import</h1><p class=muted>${by.size} quiz${by.size>1?'zes':''} · ${qn} questions${skip?` · <span class=no>${skip} item${skip>1?'s':''} skipped</span>`:''}</p>${note}
+  ${[...by].slice(0,30).map(([k,a])=>`<div class=item><div class=t><b>${esc(k)}</b><small>${a.length} questions</small></div></div>`).join('')}
+  <div class=row><button class="btn pri sm" onclick="doImport()">Import now</button><button class="btn sm" onclick="closeModal()">Cancel</button></div>`)}catch(x){toast('Could not read file: '+x.message)}};
+ isJ?fr.readAsText(f):fr.readAsArrayBuffer(f)}
+async function doImport(){if(!IMP)return;let n=0,dup=0;const have=new Set(DQ.map(d=>d.title+'|'+JSON.stringify(d.questions)));
+ for(const[title,questions]of IMP){if(have.has(title+'|'+JSON.stringify(questions))){dup++;continue}
+  if(JSON.stringify(questions).length>900000){toast(`"${title}" too large, skipped`);continue}
+  const {error}=await sb.from('quizzes').insert({title,questions,n:questions.length});if(error){toast(error.message);continue}n++}
+ IMP=null;closeModal();toast(`Imported ${n} quiz${n===1?'':'zes'}${dup?` · ${dup} duplicate${dup>1?'s':''} skipped`:''}`);tab='quizzes';dash('quizzes')}
+function template(){const wb=XLSX.utils.book_new(),ex=[
+ {Quiz:'Sample quiz',No:1,Type:'Multiple choice',Question:'Which planet is known as the Red Planet?','Option A':'Venus','Option B':'Mars','Option C':'Jupiter','Option D':'Mercury',Correct:'B','Time (s)':20,'Image URL':'','Video URL':''},
+ {Quiz:'Sample quiz',No:2,Type:'One word',Question:'Capital of France?','Option A':'','Option B':'','Option C':'','Option D':'',Correct:'Paris|paris','Time (s)':20,'Image URL':'','Video URL':''}];
+ XLSX.utils.book_append_sheet(wb,sheet(ex),'Quizzes');
+ XLSX.utils.book_append_sheet(wb,sheet([{Column:'Type',Rule:'"Multiple choice" or "One word"'},{Column:'Correct',Rule:'MCQ: letter A–D. One word: answer; alternates split by |'},{Column:'Time (s)',Rule:'10, 20, 30 or 60'},{Column:'Quiz',Rule:'Rows with the same Quiz title become one quiz'},{Column:'Image/Video URL',Rule:'https links only'}]),'Instructions');
+ XLSX.writeFile(wb,'intelect-import-template.xlsx')}
+
+// ===== QUIZ BUILDER =====
+const blank=()=>({t:'',type:'mcq',opts:['','','',''],c:0,a:'',img:'',vid:'',time:20});
+async function edit(id){quizId=id||null;if(id){const d=await rd(sb.from('quizzes').select('*').eq('id',id).single());if(!d)return toast('Could not load quiz');draft={title:d.title,questions:d.questions}}else draft={title:'',questions:[blank()]};builder()}
+function builder(){clear();const d=draft;
+ show(`${logo()}<main><div class=hd><div><span class=eyebrow>Quiz builder</span><h2 class=big-h style="margin-top:12px">${quizId?'Edit':'New'} quiz</h2></div></div><div class="card glow"><input id=ti maxlength=80 placeholder="Quiz title" value="${esc(d.title)}" style="font-size:18px;font-weight:600"></div>
+ ${d.questions.map((q,i)=>`<div class="card qc"><div class=row><b class=grad style="font-family:'Space Grotesk';font-size:18px">Q${i+1}</b>
+ <select style="flex:1;min-width:140px" data-i=${i} data-k=type><option value=mcq ${q.type==='mcq'?'selected':''}>Multiple choice</option><option value=word ${q.type==='word'?'selected':''}>One word</option></select>
+ <select style="width:90px" data-i=${i} data-k=time>${TIMES.map(t=>`<option value=${t} ${q.time==t?'selected':''}>${t}s</option>`).join('')}</select>
+ ${d.questions.length>1?`<button class="btn red" onclick="rmQ(${i})">Delete</button>`:''}</div>
+ <input data-i=${i} data-k=t maxlength=300 placeholder="Type your question" value="${esc(q.t)}">
+ <div class=row><label class=btn style="flex:1;text-align:center;cursor:pointer">Add picture<input type=file accept="image/*" data-img=${i} data-i=${i} hidden></label>${q.img?`<button class="btn red" onclick="draft.questions[${i}].img='';builder()">Remove</button>`:''}</div>
+ <input data-i=${i} data-k=vid maxlength=300 placeholder="Video link (YouTube or https .mp4)" value="${esc(q.vid)}">${media(q)}
+ ${q.type==='mcq'?q.opts.map((o,j)=>`<div class=row style="flex-wrap:nowrap"><input type=radio name=c${i} data-i=${i} data-c=${j} ${q.c==j?'checked':''}><span style="width:20px;text-align:center">${SH[j]}</span><input data-i=${i} data-o=${j} maxlength=120 placeholder="Option ${j+1}" value="${esc(o)}"></div>`).join('')+'<div class=rl>Select the circle next to the correct answer</div>'
+ :`<input data-i=${i} data-k=a maxlength=200 placeholder="Correct answer (alternates: cat|kitten)" value="${esc(q.a)}">`}</div>`).join('')}
+ ${d.questions.length<200?'<button class=btn onclick="draft.questions.push(blank());builder()">+ Add question</button>':''}
+ <button class="btn big" onclick="saveQ()">Save quiz</button><p class=lnk onclick="dash('quizzes')">Back to control center</p></main>`)}
+app.oninput=app.onchange=async e=>{const t=e.target;if(t.id==='ti'&&draft)return draft.title=t.value;const i=t.dataset.i;if(i==null||!draft)return;const q=draft.questions[i];
+ if(t.dataset.img!=null){const f=t.files[0];if(f&&/^image\//.test(f.type)){q.img=await comp(f);builder()}}
+ else if(t.dataset.o!=null)q.opts[t.dataset.o]=t.value;else if(t.dataset.c!=null)q.c=+t.dataset.c;
+ else if(t.dataset.k){q[t.dataset.k]=t.dataset.k==='time'?+t.value:t.value;if(t.dataset.k==='type')builder()}};
+const comp=f=>new Promise(r=>{const i=new Image(),u=URL.createObjectURL(f);i.onload=()=>{const s=Math.min(1,720/i.width),c=document.createElement('canvas');c.width=i.width*s;c.height=i.height*s;c.getContext('2d').drawImage(i,0,0,c.width,c.height);URL.revokeObjectURL(u);r(c.toDataURL('image/jpeg',.7))};i.onerror=()=>{URL.revokeObjectURL(u);r('')};i.src=u});
+function rmQ(i){draft.questions.splice(i,1);builder()}
+async function saveQ(){const d=draft;d.title=cut(d.title,80);if(!d.title)return toast('Add a quiz title');
+ for(const[i,q]of d.questions.entries()){if(!q.t.trim())return toast(`Q${i+1}: add the question`);
+  if(q.type==='mcq'){if(q.opts.filter(o=>o.trim()).length<2||!q.opts[q.c].trim())return toast(`Q${i+1}: need 2+ options and a correct one`)}else if(!q.a.trim())return toast(`Q${i+1}: add the answer`)}
+ const qs=d.questions.map(cleanQ);if(qs.some(x=>!x))return toast('Some questions are invalid (links must be https)');
+ if(JSON.stringify(qs).length>900000)return toast('Too much media for one quiz — use links for big images');
+ const data={title:d.title,questions:qs,n:qs.length};
+ const {error}=quizId?await sb.from('quizzes').update(data).eq('id',quizId):await sb.from('quizzes').insert(data);
+ if(error)return toast(error.message);toast('Saved');dash('quizzes')}
+
+// ===== HOST =====
+async function hostGame(id){const qd=await rd(sb.from('quizzes').select('*').eq('id',id).single());if(!qd)return toast('Could not load quiz');const Q=qd.questions;let pin=null;
+ for(let t=0;t<12&&!pin;t++){const p=String(100000+Math.floor(Math.random()*900000));
+  const {error}=await sb.from('games').insert({pin:p,host:me.id,title:qd.title,qid:id,state:'lobby',q:-1,n:Q.length});
+  if(!error)pin=p;else if(error.code!=='23505')return toast(error.message)}
+ if(!pin)return toast('Could not allocate a game code, try again');
+ const fail=async m=>{await sb.from('games').delete().eq('pin',pin);toast(m)};
+ let r=await sb.from('game_private').insert({pin,k:Q.map(q=>q.type==='mcq'?q.c:q.a.split('|').map(norm))});if(r.error)return fail(r.error.message);
+ r=await sb.from('game_qs').insert(Q.map((q,i)=>{const{c,a,...pub}=q;return{pin,idx:i,data:pub}}));if(r.error)return fail(r.error.message);
+ hostView(pin,Q)}
+function hostView(pin,Q){clear();let g={},ps=[],ans=[],key,busy=false,aq=-2,au=()=>{};
+ unsub.push(()=>au());rd(sb.from('game_private').select('k').eq('pin',pin).single()).then(d=>key=d&&d.k);
+ const upd=()=>{const c=$('#cn');if(c)c.textContent=`${ans.length}/${ps.length} answered`};
+ const refresh=async()=>{const d=await getGame(pin)();if(d!==undefined){g=mapG(d);r()}};
+ unsub.push(live('players',pin,getPlayers(pin),d=>{ps=d;if(g.state==='lobby')r();else upd()}));
+ unsub.push(live('games',pin,getGame(pin),d=>{g=mapG(d);r()}));
+ const reveal=async()=>{if(busy||g.state!=='question'||!g.qStart||!key)return;busy=true;clearInterval(tick);
+  const q=Q[g.q],k=key[g.q],st=g.qStart,lim=q.time*1000,by={};
+  const A=await rd(sb.from('answers').select('uid,a,t').eq('pin',pin).eq('q',g.q));
+  if(!A){busy=false;toast('Network issue — retrying');setTimeout(reveal,1500);return}
+  A.forEach(a=>by[a.uid]=a);
+  const rows=ps.map(p=>{const a=by[p.id];let ok=false,pts=0;
+   if(a&&a.t){const el=Date.parse(a.t)-st;if(el<=lim+1500){ok=q.type==='mcq'?a.a===k:k.includes(norm(a.a));if(ok)pts=Math.round(1000*(1-Math.min(Math.max(el,0)/lim,1)/2))}}
+   const sk=ok?(p.streak||0)+1:0;if(ok)pts+=Math.min(sk-1,4)*50;
+   return{uid:p.id,score:(p.score||0)+pts,streak:sk,last:{q:g.q,ok,pts}}});
+  const {error}=await sb.rpc('finish_question',{p_pin:pin,p_rows:rows,p_reveal:q.type==='mcq'?q.opts[q.c]:q.a.split('|')[0].trim()});
+  busy=false;if(error)toast(error.message);else refresh()};
+ window.nextQ=async()=>{const n=g.q+1;const {error}=await sb.from('games').update(n>=g.n?{state:'end'}:{state:'question',q:n,reveal:null}).eq('pin',pin);if(error)return toast(error.message);refresh()};
+ window.skipQ=reveal;
+ const r=()=>{
+  if(g.state==='lobby'){if(!$('#pl')){show(`${logo()}<main><div class="card glow"><h1 class=c>${esc(g.title)}</h1><p class="c muted">Join at this page with code</p><div class=pin>${pin}</div><div id=qr></div>
+   <div class=c><b id=ct></b></div><div class=pl id=pl style="text-align:center;margin:10px 0"></div><button class="btn big" onclick="nextQ()">Start quiz</button></div></main>`);
+   new QRCode($('#qr'),{text:location.origin+location.pathname+'?pin='+pin,width:200,height:200})}
+   $('#ct').textContent=ps.length+' player'+(ps.length===1?'':'s')+' joined';$('#pl').innerHTML=ps.map(p=>`<span>${esc(p.name)}</span>`).join('')}
+  else if(g.state==='question'){if(aq!==g.q){aq=g.q;au();ans=[];au=live('answers',pin,async()=>{const d=await rd(sb.from('answers').select('uid').eq('pin',pin).eq('q',g.q));return d},d=>{ans=d;upd()});const q=Q[g.q];
+    show(`${logo()}<main><div class="card glow"><div class=row><b>Question ${g.q+1}/${g.n}</b><span style="flex:1"></span><span id=cn class=muted></span></div><div class=bar><div id=tm></div></div>
+    <h1 class=c style="font-size:28px">${esc(q.t)}</h1>${media(q)}${q.type==='mcq'?`<div class=opts>${q.opts.map((o,j)=>o.trim()?`<div class=opt style="background:${COL[j]}">${SH[j]} ${esc(o)}</div>`:'').join('')}</div>`:'<p class="c muted"><i>Players type a one-word answer</i></p>'}
+    <button class=btn onclick="skipQ()" style="margin-top:16px">End question and show results</button></div></main>`);upd();
+    clearInterval(tick);tick=setInterval(()=>{if(!g.qStart)return;const rem=Math.max(0,q.time*1000-(Date.now()-g.qStart));const tm=$('#tm');if(tm)tm.style.width=rem/q.time/10+'%';
+     if(rem<=0||(ps.length&&ans.length>=ps.length))reveal()},250)}}
+  else if(g.state==='lb'){aq=-2;au();clearInterval(tick);show(`${logo()}<main><div class="card glow"><h1 class=c>Correct answer: <span class=ok>${esc(g.reveal)}</span></h1><h2 class=c>Leaderboard</h2>${lb(ps,5)}
+   <button class="btn big" onclick="nextQ()">${g.q+1>=g.n?'View final results':'Next question'}</button></div></main>`)}
+  else if(g.state==='end'){aq=-2;au();clearInterval(tick);show(`${logo()}<main><div class="card glow"><h1 class=c>🏆 Final results</h1>${podium(ps)}${lb(ps,10)}<div class=row><button class="btn pri" style="flex:1" onclick="dash('sessions')">Done</button></div></div></main>`)}};}
+
+// ===== PLAYER =====
+function player(pin,uid){clear();
+ const myId=()=>uid;
+ P={pin,uid:myId(),done:-1,drawn:null};let g={},ps=[],q=null,qi=-2;
+ unsub.push(live('players',pin,getPlayers(pin),d=>{ps=d;r()}));
+ unsub.push(live('games',pin,getGame(pin),async d=>{g=mapG(d);if(g.state==='question'&&qi!==g.q){qi=g.q;q=null;r();const x=await rd(sb.from('game_qs').select('data').eq('pin',pin).eq('idx',g.q).single());q=x&&x.data}r()}));
+ window.pAns=async a=>{if(a===''||a==null)return;const k=g.q;P.done=k;r();
+  const {error}=await sb.from('answers').insert({pin,q:k,uid:myId(),a});if(error&&error.code!=='23505'){P.done=-1;r();toast('Send failed, try again')}};
+ window.pAnsW=()=>pAns(($('#wa').value||'').trim().slice(0,100));
+ const meP=()=>ps.find(p=>p.id===myId())||{score:0},rank=()=>[...ps].sort((a,b)=>b.score-a.score).findIndex(p=>p.id===myId())+1;
+ const r=()=>{const w=h=>show(`${logo()}<main><div class="card glow">${h}</div></main>`);
+  if(g.state!=='question')P.drawn=null;
+  if(!g.state)return w('<h1 class=c>Game not found</h1><button class=btn onclick="home()">Home</button>');
+  if(g.state==='lobby')return w(`<div class=pulse></div><h1 class=c>You're in, ${esc(meP().name)}!</h1><p class="c muted">Waiting for the host to start…</p>`);
+  if(g.state==='question'){if(!q)return w('<div class=pulse></div><p class="c muted">Loading question…</p>');
+   if(P.done===g.q)return w('<div class=pulse></div><h1 class=c>Answer locked in</h1><p class="c muted">Waiting for results…</p>');
+   if(P.drawn===g.q&&$('#tm'))return;
+   P.drawn=g.q;
+   w(`<div class=bar><div id=tm></div></div><h2 class=c style="font-size:24px">${esc(q.t)}</h2>${media(q)}${q.type==='mcq'?`<div class=opts>${q.opts.map((o,j)=>o.trim()?`<button class=opt style="background:${COL[j]}" onclick="pAns(${j})">${SH[j]} ${esc(o)}</button>`:'').join('')}</div>`
+    :'<input id=wa maxlength=100 placeholder="Type your answer" autocomplete=off onkeydown="if(event.key===\'Enter\')pAnsW()"><button class="btn pri" onclick="pAnsW()">Submit</button>'}`);
+   clearInterval(tick);tick=setInterval(()=>{const e=$('#tm');if(!e||!g.qStart)return;e.style.width=Math.max(0,q.time*1000-(Date.now()-g.qStart))/q.time/10+'%'},250);return}
+  clearInterval(tick);const m=meP(),l=m.last||{};
+  if(g.state==='lb')return w(`<h1 class="c verdict">${l.ok?'<span class=ok>Correct  +'+l.pts+'</span>':'<span class=no>Incorrect</span>'}</h1><p class=c>Answer: <b>${esc(g.reveal)}</b></p>
+   <h3 class=c>You're #${rank()} · ${m.score} pts</h3>${lb(ps,5,myId())}<p class="c muted">Waiting for next question…</p>`);
+  w(`<h1 class=c>You finished #${rank()}</h1><p class="c grad" style="font-size:28px;font-weight:700">${m.score} points</p>${podium(ps)}${lb(ps,5,myId())}<button class="btn pri" onclick="home()">Home</button>`)};}
+</script></body></html>
