@@ -1,6 +1,6 @@
-<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelect | Live Assessment Platform</title>
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Intelect | Live Quiz Platform</title>
 <link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Fraunces:opsz,wght@9..144,500;9..144,600;9..144,700&display=swap" rel="stylesheet">
 <meta http-equiv="Content-Security-Policy" content="default-src 'self'; script-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com; font-src https://fonts.gstatic.com; img-src 'self' data: blob: https:; media-src 'self' https: data: blob:; frame-src https://www.youtube-nocookie.com; connect-src 'self' https://*.supabase.co wss://*.supabase.co; worker-src blob:; object-src 'none'; base-uri 'self'; form-action 'self'">
 <meta name="referrer" content="strict-origin-when-cross-origin"><meta name="robots" content="noindex,nofollow">
 <script>if(window.top!==window.self){try{window.top.location=window.self.location}catch(e){document.documentElement.style.display='none'}}</script>
@@ -89,8 +89,64 @@ body{-webkit-user-select:none;user-select:none;-webkit-touch-callout:none}
 input,textarea,select{-webkit-user-select:text;user-select:text}
 img,video{-webkit-user-drag:none}
 @media print{html,body{display:none!important}}
+
+/* ===== PROFESSIONAL THEME: cream + deep green ===== */
+:root{--bg:#f6f1e3;--ink:#14231c;--mut:#5d6b63;--line:rgba(20,35,28,.14);--glass:#fffdf8;--g:#0f5f46;--g2:#0b4635;--tint:#e8f1ea;--c1:#0f5f46;--c2:#0f5f46;--c3:#0f5f46;--grad:linear-gradient(135deg,#0f5f46,#0b4635);--ok:#0f7a4f;--no:#b42318}
+h1,h2,h3,.logo,.pin,.big-h,.num{font-family:"Fraunces",Georgia,serif;letter-spacing:-.2px}
+.amb{background:radial-gradient(800px 480px at 90% -5%,#dcebe0 0,transparent 65%),radial-gradient(#0f5f4614 1px,transparent 1px) 0 0/26px 26px,var(--bg)}
+header{background:rgba(246,241,227,.9);border-bottom:1px solid var(--line)}
+.logo{background:none;color:var(--ink);font-size:19px;letter-spacing:3px}.logo svg{filter:none}
+.chip{background:#fff;color:var(--ink);font-weight:500}.chip:hover{border-color:var(--g);background:var(--tint)}
+.grad{background:none;color:var(--g)}.pin{background:none;color:var(--g)}
+.card{background:var(--glass);backdrop-filter:none;-webkit-backdrop-filter:none;border:1px solid var(--line);border-radius:16px;box-shadow:0 1px 2px #14231c0f,0 18px 36px -22px #14231c40}
+.card.glow:before{display:none}.qc{border-left:4px solid var(--g)}
+.modal{background:rgba(20,35,28,.5)}.modal .card{background:var(--glass)}
+input,select{background:#fff;color:var(--ink);border:1px solid rgba(20,35,28,.24);border-radius:10px}
+input::placeholder{color:#8a958e}input:focus,select:focus{border-color:var(--g);box-shadow:0 0 0 3px rgba(15,95,70,.16)}select option{background:#fff;color:var(--ink)}input[type=radio]{accent-color:var(--g)}
+.btn{background:#fff;border:1px solid rgba(20,35,28,.24);border-radius:10px;color:var(--ink);box-shadow:0 1px 1px #14231c0d}
+.btn:hover{background:var(--tint);border-color:var(--g);transform:none}.btn:active{transform:translateY(1px)}
+.pri,.big{background:var(--g);color:#fff;border:1px solid var(--g2);box-shadow:0 1px 2px #14231c33}.pri:hover,.big:hover{background:var(--g2);filter:none;box-shadow:0 6px 16px -6px #0f5f4699}
+.big{padding:14px 18px;font-size:16px}
+.red{color:var(--no);background:#fef3f2;border-color:#f4b4ad}.red:hover{background:#fee4e2;border-color:var(--no)}
+.ic{background:var(--tint);border:1px solid #bcd5c6}
+.eyebrow{color:var(--g);border:1px solid #b9d3c3;background:var(--tint);letter-spacing:1.6px;font-size:11px}
+.lnk{color:var(--g)}code{background:var(--tint);padding:1px 5px;border-radius:4px}
+.lb li{background:#fff}.lb li span{background:var(--tint);color:var(--mut)}.lb .me{border-color:var(--g);background:var(--tint)}.lb em,.pd .sc{color:var(--g)}
+.bar{background:rgba(20,35,28,.1)}#tm{background:var(--g);box-shadow:none}
+.stat{background:#fff;backdrop-filter:none}.stat .num{color:var(--g)}
+.tabs{background:#fff}.tab.on{background:var(--g);box-shadow:none}
+.item{background:#fff}.item:hover{border-color:var(--g);background:var(--tint)}
+.drop{border-color:#9dc3ad;background:#fff}.drop:hover,.drop.on{background:var(--tint);border-color:var(--g)}
+.tag{background:#fff}.tag.live{color:var(--ok);border-color:#9bd3b5;background:#e6f6ee}
+.opt{border:0;border-radius:12px;box-shadow:0 1px 2px #14231c40;font-weight:600}button.opt:hover{transform:translateY(-2px);filter:brightness(1.08)}
+#qr{box-shadow:none;border:1px solid var(--line)}
+.pulse{background:var(--g);animation:pulse 1.6s ease-in-out infinite}@keyframes pulse{0%,100%{transform:scale(.85);box-shadow:0 0 0 0 #0f5f4688}50%{transform:scale(1);box-shadow:0 0 0 26px #0f5f4600}}
+#toast{background:var(--ink);border-color:var(--ink)}
+/* landing */
+.lp{display:grid;grid-template-columns:1.1fr .9fr;gap:52px;align-items:center;padding:56px 0 30px}
+.lp>div:first-child>h1{font-size:clamp(36px,5.6vw,58px);line-height:1.06;letter-spacing:-1.2px;font-weight:600;margin:18px 0}
+.lp>div:first-child>h1 .grad{font-style:italic}
+.lp>div:first-child>p{font-size:17px;color:var(--mut);max-width:500px}
+.lp .row .big{width:auto;padding:14px 26px}
+.pts{display:flex;gap:18px;flex-wrap:wrap;margin-top:22px;color:var(--mut);font-size:13.5px}.pts span:before{content:"✓";color:var(--g);font-weight:700;margin-right:6px}
+.feat{display:grid;grid-template-columns:repeat(3,1fr);gap:18px;margin:44px 0 26px}
+.feat>div{padding:22px;background:#fff;border:1px solid var(--line);border-radius:14px}
+.feat b{font:600 12px Inter;letter-spacing:2px;color:var(--g)}.feat h3{margin:8px 0 6px;font-size:21px}.feat p{margin:0;color:var(--mut);font-size:14.5px}
+.band{display:flex;justify-content:space-between;align-items:center;gap:18px;flex-wrap:wrap;background:var(--g);color:#f6f1e3;border-radius:18px;padding:28px 32px}
+.band h2{margin:0;font-size:26px;color:#f6f1e3}.band p{margin:4px 0 0;color:#cfe3d6}
+.band .btn{width:auto;margin:0;background:#f6f1e3;color:var(--g2);border:0;font-weight:600;padding:13px 24px}.band .btn:hover{background:#fff}
+@media(max-width:760px){.lp{grid-template-columns:1fr;padding-top:30px;gap:30px}.feat{grid-template-columns:1fr}}
+/* host lobby bubble pool */
+.pool{position:relative;height:340px;margin:16px 0;border-radius:16px;overflow:hidden;border:1px solid #bcd5c6;background:radial-gradient(circle at 50% 25%,#fffdf8,var(--tint) 78%);box-shadow:inset 0 -40px 70px -50px #0f5f4659}
+.pool:before{content:"";position:absolute;inset:-40%;background:repeating-radial-gradient(circle at 50% 55%,transparent 0 46px,rgba(15,95,70,.07) 47px 48px);animation:rip 22s linear infinite}
+@keyframes rip{to{transform:rotate(20deg) scale(1.12)}}
+.pool-e{position:absolute;inset:0;display:grid;place-items:center;color:var(--mut);font-size:15px;text-align:center;padding:20px}.pool.has .pool-e{display:none}
+.bub{position:absolute;left:0;top:0;will-change:transform}
+.bub span{display:grid;place-items:center;width:100%;height:100%;padding:8px;border-radius:50%;text-align:center;font:600 14px/1.15 Inter,sans-serif;word-break:break-word;color:var(--ink);border:2px solid color-mix(in srgb,var(--bc) 75%,#fff);
+ background:radial-gradient(circle at 30% 22%,#fff 0 6%,transparent 8%),radial-gradient(circle at 50% 60%,color-mix(in srgb,var(--bc) 9%,#fff),color-mix(in srgb,var(--bc) 28%,#fff));box-shadow:0 10px 20px -10px color-mix(in srgb,var(--bc) 70%,transparent);animation:bpop .55s cubic-bezier(.2,1.5,.4,1) both,bob 3.6s ease-in-out .55s infinite}
+@keyframes bpop{from{transform:scale(0);opacity:0}}@keyframes bob{50%{transform:scale(1.05)}}
 </style></head><body>
-<div class="amb"><i class="orb o1"></i><i class="orb o2"></i><i class="orb o3"></i><div class="grid"></div></div>
+<div class="amb"></div>
 <div id="app"></div><div id="modal"></div><div id="toast"></div>
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2.45.4/dist/umd/supabase.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/html5-qrcode/2.3.8/html5-qrcode.min.js"></script>
@@ -119,14 +175,14 @@ const sb=READY?supabase.createClient(SUPABASE_URL,SUPABASE_ANON_KEY,{auth:{persi
 
 // ===== 3. CORE HELPERS =====
 const app=document.getElementById('app'),$=s=>document.querySelector(s);
-const COL=['linear-gradient(135deg,#3b82f6,#1e3a8a)','linear-gradient(135deg,#14b8a6,#115e59)','linear-gradient(135deg,#f59e0b,#92400e)','linear-gradient(135deg,#a855f7,#581c87)'],SH=['▲','◆','●','■'],TIMES=[10,20,30,60];
+const COL=['#2b5f9e','#0f6b4f','#b0791a','#7b4a6e'],SH=['▲','◆','●','■'],TIMES=[10,20,30,60];
 let me=null,unsub=[],tick=0,scan=null,draft=null,quizId=null,pending=null,first=true,P={},tab='quizzes',DQ=[],DG=[],IMP=null,IMPX=0;
 const esc=s=>String(s??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const norm=s=>String(s).trim().toLowerCase().replace(/\s+/g,' ');
 const cut=(s,n)=>String(s??'').replace(/[\u0000-\u0008\u000B\u000C\u000E-\u001F\u007F]/g,'').trim().slice(0,n);
 const toast=m=>{const t=$('#toast');t.textContent=m;t.className='on';clearTimeout(toast.h);toast.h=setTimeout(()=>t.className='',3200)};
-const show=h=>{app.innerHTML=h+'<footer>Intelect · Live assessment platform</footer>'};
-const clear=()=>{unsub.forEach(f=>f());unsub=[];clearInterval(tick);if(scan){scan.stop().catch(()=>{});scan=null}closeModal()};
+const show=h=>{app.innerHTML=h+'<footer>Intelect · Live quiz platform</footer>'};
+const clear=()=>{window._nav=0;unsub.forEach(f=>f());unsub=[];clearInterval(tick);if(scan){scan.stop().catch(()=>{});scan=null}closeModal()};
 const fmt=t=>t?new Date(t).toLocaleString([],{dateStyle:'medium',timeStyle:'short'}):'';
 const openModal=h=>{$('#modal').innerHTML=`<div class=modal onclick="if(event.target===this)closeModal()"><div class=card>${h}</div></div>`};
 const closeModal=()=>{$('#modal').innerHTML=''};
@@ -135,11 +191,11 @@ const dname=u=>(u&&(u.user_metadata?.name||u.user_metadata?.full_name||u.email))
 const verified=u=>!!(u.email_confirmed_at||u.confirmed_at);
 const rd=async p=>{try{const r=await p;return r.error?undefined:r.data}catch(e){return undefined}};   // read helper: undefined on error
 const safeUrl=u=>{u=String(u||'').trim();if(!u)return'';if(/^data:image\/(jpeg|png|webp|gif);base64,[A-Za-z0-9+/=]+$/.test(u))return u;try{const x=new URL(u);return x.protocol==='https:'?x.href:''}catch(e){return''}};
-const MARK=`<svg viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#22d3ee"/><stop offset=".55" stop-color="#6366f1"/><stop offset="1" stop-color="#d946ef"/></linearGradient></defs><path d="M16 2l12 7v14l-12 7L4 23V9z" fill="url(#lg)"/><path d="M17.5 7.5l-6.5 10h5l-1.5 7 7-10.5h-5z" fill="#fff"/></svg>`;
+const MARK=`<svg viewBox="0 0 32 32"><defs><linearGradient id="lg" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3aa57f"/><stop offset=".55" stop-color="#0f5f46"/><stop offset="1" stop-color="#0a3d2d"/></linearGradient></defs><path d="M16 2l12 7v14l-12 7L4 23V9z" fill="url(#lg)"/><path d="M17.5 7.5l-6.5 10h5l-1.5 7 7-10.5h-5z" fill="#fff"/></svg>`;
 const lb=(ps,n,id)=>`<ol class=lb>${[...ps].sort((a,b)=>b.score-a.score).slice(0,n).map((p,i)=>`<li class="${p.id===id?'me':''}" style="animation-delay:${i*60}ms"><span>${i+1}</span><b>${esc(p.name)}</b><em>${p.score}</em></li>`).join('')}</ol>`;
 const podium=ps=>{const s=[...ps].sort((a,b)=>b.score-a.score).slice(0,3);if(!s.length)return'';const H=[150,110,80],G=['linear-gradient(180deg,#fbbf24,#b45309)','linear-gradient(180deg,#d1d5db,#6b7280)','linear-gradient(180deg,#fb923c,#7c2d12)'],order=[1,0,2].filter(i=>s[i]);
  return`<div class=podium>${order.map(i=>`<div class=pd><div class=nm>${esc(s[i].name)}</div><div class=sc>${s[i].score} pts</div><div class=bl style="height:${H[i]}px;background:${G[i]}">${i+1}</div></div>`).join('')}</div>`};
-const logo=()=>`<header><span class=logo onclick="home()">${MARK}INTELECT</span>${me&&!isAnon(me)?`<span class=chip onclick="signOut()">${esc(dname(me))} · Sign out</span>`:''}</header>`;
+const logo=()=>`<header><span class=logo onclick="home()">${MARK}INTELECT</span>${me&&!isAnon(me)?`<span class=chip onclick="signOut()">${esc(dname(me))} · Sign out</span>`:(window._nav?'<span class=chip onclick="gate(dash)">Host sign in</span>':'')}</header>`;
 function media(q){let h='';const im=safeUrl(q.img);if(im)h+=`<img class=m src="${esc(im)}" alt="" draggable=false>`;
  if(q.vid){const v=safeUrl(q.vid),y=String(q.vid).match(/(?:youtu\.be\/|v=|embed\/|shorts\/)([\w-]{11})/);
   if(y)h+=`<iframe class=m src="https://www.youtube-nocookie.com/embed/${y[1]}?rel=0" sandbox="allow-scripts allow-same-origin allow-presentation" allowfullscreen loading=lazy></iframe>`;
@@ -170,16 +226,19 @@ else sb.auth.onAuthStateChange((ev,s)=>{setTimeout(()=>{me=s?.user||null;
  else if(pending&&me&&!isAnon(me)&&ev==='SIGNED_IN'){const c=pending;pending=null;gate(c)}},0)});
 
 // ===== HOME =====
-function home(){clear();draft=null;const pin=(new URLSearchParams(location.search).get('pin')||'').replace(/\D/g,'').slice(0,6);
- show(`${logo()}<main><div class=hero><span class=eyebrow>Live assessment platform</span><h1>Think sharper.<br><span class=grad>Compete live.</span></h1><p>Run real-time quizzes with instant leaderboards. Build once, import from Excel, export every result.</p></div>
- <div class=split><div class="card glow"><div class=ic>⚡</div><h1>Join a quiz</h1>
- <button class="btn big" onclick="startScan()">Scan QR code</button><div id=reader></div>
- <div class=or>or enter code</div>
+function home(){clear();window._nav=1;draft=null;const pin=(new URLSearchParams(location.search).get('pin')||'').replace(/\D/g,'').slice(0,6);
+ show(`${logo()}<main class=wide><section class=lp><div><span class=eyebrow>Live quiz platform</span>
+ <h1>Run live quizzes with <span class=grad>clarity</span> and confidence.</h1>
+ <p>Create a quiz, share a game code, and see every response scored in real time. Built for classrooms, training sessions and team assessments.</p>
+ <div class=row style="margin-top:26px"><button class="btn big" onclick="gate(dash)">Host a quiz</button><button class=btn style="padding:14px 22px" onclick="$('#how').scrollIntoView({behavior:'smooth'})">How it works</button></div>
+ <div class=pts><span>Live leaderboard</span><span>Excel import &amp; export</span><span>Secure host sign-in</span></div></div>
+ <div class=card id=join><div class=ic>▶</div><h1>Join a game</h1><p class=muted style="margin:0 0 8px">Enter the code shown on the host's screen.</p>
  <input id=pin inputmode=numeric maxlength=6 placeholder="6-digit game code" value="${esc(pin)}" autocomplete=off>
- <input id=nick maxlength=16 placeholder="Your nickname" autocomplete=off>
- <button class="btn pri" onclick="joinGame()">Join game</button></div>
- <div class=card><div class=ic>🎛️</div><h1>Host a quiz</h1><p class=muted>Create quizzes, launch live sessions, and manage all your data — including Excel import &amp; export and full backups — from one control center.</p>
- <button class="btn pri" onclick="gate(dash)">Open control center</button></div></div></main>`)}
+ <input id=nick maxlength=16 placeholder="Your name" autocomplete=off>
+ <button class="btn big pri" onclick="joinGame()">Join game</button>
+ <div class=or>or</div><button class=btn onclick="startScan()">Scan QR code</button><div id=reader></div></div></section>
+ <div class=feat id=how><div><b>01 · BUILD</b><h3>Create your quiz</h3><p>Multiple choice or one-word answers, with images and video. Import whole sets from Excel.</p></div><div><b>02 · HOST</b><h3>Open a live session</h3><p>Share the code or QR. Participants appear in your lobby the moment they join.</p></div><div><b>03 · REVIEW</b><h3>Score and export</h3><p>Timed answers, automatic scoring, rankings, and full results exported to Excel.</p></div></div>
+ <div class=band><div><h2>Ready to host your first quiz?</h2><p>Sign in with Google or Gmail to open your control center.</p></div><button class=btn onclick="gate(dash)">Host sign in →</button></div></main>`)}
 function startScan(){if(!READY)return;const r=new Html5Qrcode('reader');scan=r;
  r.start({facingMode:'environment'},{fps:10,qrbox:220},t=>{let p=t;try{p=new URL(t).searchParams.get('pin')||t}catch(e){}
   $('#pin').value=String(p).replace(/\D/g,'').slice(0,6);r.stop().then(()=>{scan=null;$('#reader').innerHTML='';$('#nick').focus()}).catch(()=>{})},()=>{}).catch(()=>toast('Camera blocked — enter the code instead'))}
@@ -206,7 +265,7 @@ function recoverView(){clear();show(`${logo()}<main><div class="card glow" style
  $('#np').oninput=e=>{$('#rl').innerHTML=ruleHtml(e.target.value)};
  $('#sv').onclick=async()=>{const p=$('#np').value;if(rules(p).some(x=>!x[0]))return toast('Password is not strong enough');const r=await sb.auth.updateUser({password:p});if(r.error)return toast(r.error.message);toast('Password updated');gate(dash)}}
 function authView(cb){clear();pending=cb;let up=false;
- const r=()=>{show(`${logo()}<main><div class="card glow" style="max-width:460px;margin:20px auto"><h1>${up?'Create account':'Welcome back'}</h1>
+ const r=()=>{show(`${logo()}<main><div class="card glow" style="max-width:460px;margin:20px auto"><span class=eyebrow>Host sign in</span><h1 style="margin-top:12px">${up?'Create your account':'Welcome back'}</h1>
  <button class=btn id=g>Continue with Google</button><div class=or>or use Gmail + password</div>
  ${up?'<input id=nm maxlength=40 placeholder="Full name" autocomplete=name>':''}<input id=em type=email maxlength=120 placeholder="you@gmail.com" autocomplete=email>
  <input id=pw type=password maxlength=72 placeholder="Password" autocomplete="${up?'new-password':'current-password'}">${up?'<div id=rl></div>':''}
@@ -392,9 +451,9 @@ function hostView(pin,Q){clear();let g={},ps=[],ans=[],key,busy=false,aq=-2,au=(
  window.skipQ=reveal;
  const r=()=>{
   if(g.state==='lobby'){if(!$('#pl')){show(`${logo()}<main><div class="card glow"><h1 class=c>${esc(g.title)}</h1><p class="c muted">Join at this page with code</p><div class=pin>${pin}</div><div id=qr></div>
-   <div class=c><b id=ct></b></div><div class=pl id=pl style="text-align:center;margin:10px 0"></div><button class="btn big" onclick="nextQ()">Start quiz</button></div></main>`);
+   <div class=c><b id=ct></b></div><div class=pool id=pl><div class=pool-e>Waiting for participants to join…</div></div><button class="btn big" onclick="nextQ()">Start quiz</button></div></main>`);
    new QRCode($('#qr'),{text:location.origin+location.pathname+'?pin='+pin,width:200,height:200})}
-   $('#ct').textContent=ps.length+' player'+(ps.length===1?'':'s')+' joined';$('#pl').innerHTML=ps.map(p=>`<span>${esc(p.name)}</span>`).join('')}
+   $('#ct').textContent=ps.length+' player'+(ps.length===1?'':'s')+' joined';poolSync($('#pl'),ps)}
   else if(g.state==='question'){if(aq!==g.q){aq=g.q;au();ans=[];au=live('answers',pin,async()=>{const d=await rd(sb.from('answers').select('uid').eq('pin',pin).eq('q',g.q));return d},d=>{ans=d;upd()});const q=Q[g.q];
     show(`${logo()}<main><div class="card glow"><div class=row><b>Question ${g.q+1}/${g.n}</b><span style="flex:1"></span><span id=cn class=muted></span></div><div class=bar><div id=tm></div></div>
     <h1 class=c style="font-size:28px">${esc(q.t)}</h1>${media(q)}${q.type==='mcq'?`<div class=opts>${q.opts.map((o,j)=>o.trim()?`<div class=opt style="background:${COL[j]}">${SH[j]} ${esc(o)}</div>`:'').join('')}</div>`:'<p class="c muted"><i>Players type a one-word answer</i></p>'}
@@ -430,4 +489,25 @@ function player(pin,uid){clear();
   if(g.state==='lb')return w(`<h1 class="c verdict">${l.ok?'<span class=ok>Correct  +'+l.pts+'</span>':'<span class=no>Incorrect</span>'}</h1><p class=c>Answer: <b>${esc(g.reveal)}</b></p>
    <h3 class=c>You're #${rank()} · ${m.score} pts</h3>${lb(ps,5,myId())}<p class="c muted">Waiting for next question…</p>`);
   w(`<h1 class=c>You finished #${rank()}</h1><p class="c grad" style="font-size:28px;font-weight:700">${m.score} points</p>${podium(ps)}${lb(ps,5,myId())}<button class="btn pri" onclick="home()">Home</button>`)};}
+
+// ===== bubble pool +  =====
+const BC=['#0f5f46','#2b5f9e','#3aa57f','#b0791a','#4f6fb0','#0f766e','#7a5c3e','#5a8f6f'];let poolRaf=0;
+function poolSync(el,ps){if(!el)return;const ids=new Set(ps.map(p=>String(p.id)));
+ [...el.querySelectorAll('.bub')].forEach(b=>{if(!ids.has(b.dataset.id))b.remove()});
+ const W=el.clientWidth||600,H=el.clientHeight||340,have=new Set([...el.querySelectorAll('.bub')].map(b=>b.dataset.id));
+ ps.forEach(p=>{const id=String(p.id);if(have.has(id))return;const n=String(p.name||'?'),d=Math.min(130,Math.max(72,40+n.length*9)),h=[...id].reduce((a,c)=>a+c.charCodeAt(0),0);
+  const b=document.createElement('div'),sp=document.createElement('span');b.className='bub';b.dataset.id=id;sp.textContent=n;b.appendChild(sp);
+  b.style.cssText=`width:${d}px;height:${d}px;--bc:${BC[h%BC.length]}`;
+  b._s={d,x:Math.random()*Math.max(1,W-d),y:Math.random()*Math.max(1,H-d),vx:(Math.random()<.5?-1:1)*(.35+Math.random()*.6),vy:(Math.random()<.5?-1:1)*(.3+Math.random()*.5)};
+  b.style.transform=`translate(${b._s.x}px,${b._s.y}px)`;el.appendChild(b)});
+ el.classList.toggle('has',ps.length>0);if(!poolRaf)poolRaf=requestAnimationFrame(poolTick)}
+function poolTick(){const el=document.getElementById('pl');if(!el||!el.classList.contains('pool')){poolRaf=0;return}
+ const W=el.clientWidth,H=el.clientHeight,B=[...el.querySelectorAll('.bub')];
+ B.forEach(b=>{const s=b._s;s.x+=s.vx;s.y+=s.vy;
+  if(s.x<0){s.x=0;s.vx=Math.abs(s.vx)}else if(s.x>W-s.d){s.x=W-s.d;s.vx=-Math.abs(s.vx)}
+  if(s.y<0){s.y=0;s.vy=Math.abs(s.vy)}else if(s.y>H-s.d){s.y=H-s.d;s.vy=-Math.abs(s.vy)}});
+ for(let i=0;i<B.length;i++)for(let j=i+1;j<B.length;j++){const a=B[i]._s,c=B[j]._s,dx=(c.x+c.d/2)-(a.x+a.d/2),dy=(c.y+c.d/2)-(a.y+a.d/2),m=(a.d+c.d)/2,q=Math.hypot(dx,dy)||1;
+  if(q<m){const nx=dx/q,ny=dy/q,o=(m-q)/2;a.x-=nx*o;a.y-=ny*o;c.x+=nx*o;c.y+=ny*o;
+   const p=(a.vx-c.vx)*nx+(a.vy-c.vy)*ny;if(p>0){a.vx-=p*nx;a.vy-=p*ny;c.vx+=p*nx;c.vy+=p*ny}}}
+ B.forEach(b=>b.style.transform=`translate(${b._s.x}px,${b._s.y}px)`);poolRaf=requestAnimationFrame(poolTick)}
 </script></body></html>
